@@ -1,5 +1,5 @@
 version: '3'
-services: 
+services:
   postgres:
     image: 'postgres:latest'
     environment: 
@@ -39,7 +39,7 @@ services:
       - ./client:/app
     environment:
       - CHOKIDAR_USEPOLLING=true
-   worker:
+  worker:
     build:
       dockerfile: Dockerfile.dev
       context: ./worker
