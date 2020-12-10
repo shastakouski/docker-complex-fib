@@ -15,9 +15,9 @@ after-success:
   - docker build -t shastakouski/multi-server ./server
   - docker build -t shastakouski/multi-worker ./worker
   # Log in to the docker CLI
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --pasword-stdin
+  - echo "$DOCKER_PASSWORD1" | docker login -u "$DOCKER_ID" --pasword-stdin
   # Take images and push them to docker hub
-  - docker push shastakouski/multi-client
-  - docker push shastakouski/multi-nginx
-  - docker push shastakouski/multi-server
-  - docker push shastakouski/multi-worker
+  - docker push shastakouski/multi-client:latest
+  - docker push shastakouski/multi-nginx:latest
+  - docker push shastakouski/multi-server:latest
+  - docker push shastakouski/multi-worker:latest
