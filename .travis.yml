@@ -1,0 +1,23 @@
+language: generic
+sudo: required
+services:
+  - docker
+
+before_install: 
+  - docker build -t shastakouski/react-test -f ./client/Dockerfile.dev ./client
+ 
+script:
+  - docker run -e CI=true shastakouski/react-test npm run test -- --coverage
+
+after-success:
+  - docker build -t shastakouski/multi-client ./client
+  - docker build -t shastakouski/multi-nginx ./nginx
+  - docker build -t shastakouski/multi-server ./server
+  - docker build -t shastakouski/multi-worker ./worker
+  # Log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --pasword-stdin
+  # Take images and push them to docker hub
+  - docker push shastakouski/multi-client
+  - docker push shastakouski/multi-nginx
+  - docker push shastakouski/multi-server
+  - docker push shastakouski/multi-worker
